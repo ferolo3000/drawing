@@ -51,3 +51,28 @@ window.addEventListener("mousemove", function(e){
     prevX = e.clientX
     prevY = e.clientY
 })
+
+
+window.addEventListener("touchstart", (e) => draw = true);
+
+window.addEventListener("touchend", (e) => draw = false);
+        
+window.addEventListener("touchmove", (e) => {
+    if(prevX == null || prevY == null || !draw){
+        prevX = e.clientX
+        prevY = e.clientY
+        return
+    }
+
+    let mouseX = e.clientX
+    let mouseY = e.clientY
+    ctx.beginPath()
+    ctx.moveTo(prevX, prevY)
+    ctx.lineTo(mouseX, mouseY)
+    ctx.stroke()
+
+    prevX = e.clientX
+    prevY = e.clientY
+});
+        
+    
