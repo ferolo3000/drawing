@@ -31,7 +31,9 @@ saveBtn.addEventListener("click", () => {
     a.click()
 })
 
-/*window.addEventListener("mousedown", (e) => draw = true)
+//----------------------------------------------
+
+window.addEventListener("mousedown", (e) => draw = true)
 window.addEventListener("mouseup", (e) => draw = false)
 
 window.addEventListener("mousemove", function(e){
@@ -50,29 +52,39 @@ window.addEventListener("mousemove", function(e){
 
     prevX = e.clientX
     prevY = e.clientY
-})*/
+})
 
-const canvas = this.paintCanvas;
 
-        document.body.addEventListener("touchstart", (e) => {
-            if (e.target == canvas) {
-                e.preventDefault();                 
-                this.onMouseDownHandler(e); 
-            }
-        }, false);
 
-        document.body.addEventListener("touchend", (e) => {
-            if (e.target == canvas) { 
-                e.preventDefault();
-                this.onMouseUpHandler(e); 
-            }
-        }, false);
-        
-        document.body.addEventListener("touchmove", (e) => {
-            if (e.target == canvas) { 
-                e.preventDefault(); 
-                this.onMouseMoveHandler(e); 
-            }
-        }, false);
-        
-    
+// Set up touch event listeners
+function setupTouchEvents() {
+    canvas.addEventListener('touchstart', handleTouchStart, false);
+    canvas.addEventListener('touchmove', handleTouchMove, false);
+}
+
+// Handle touch start
+function handleTouchStart(e) {
+    e.preventDefault();
+    const touch = e.touches[0];
+    const mouseEvent = createMouseEvent('mousedown', touch);
+    canvas.dispatchEvent(mouseEvent);
+}
+
+// Handle touch move
+function handleTouchMove(e) {
+    e.preventDefault();
+    const touch = e.touches[0];
+    const mouseEvent = createMouseEvent('mousemove', touch);
+    canvas.dispatchEvent(mouseEvent);
+}
+
+// Utility function to convert touch event to mouse event
+function createMouseEvent(type, touch) {
+    return new MouseEvent(type, {
+        clientX: touch.clientX,
+        clientY: touch.clientY
+    });
+}
+
+// Start listening for touch events
+setupTouchEvents();
