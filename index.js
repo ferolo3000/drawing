@@ -32,7 +32,7 @@ saveBtn.addEventListener("click", () => {
 })
 
 //----------------------------------------------
-
+/*
 window.addEventListener("mousedown", (e) => draw = true)
 window.addEventListener("mouseup", (e) => draw = false)
 
@@ -52,7 +52,7 @@ window.addEventListener("mousemove", function(e){
 
     prevX = e.clientX
     prevY = e.clientY
-})
+})*/
 
 
 
