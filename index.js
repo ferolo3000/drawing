@@ -3,7 +3,9 @@ let canvas = document.getElementById("canvas")
 canvas.height = window.innerHeight
 canvas.width = window.innerWidth
 let ctx = canvas.getContext("2d")
-ctx.lineWidth = 5
+ctx.lineWidth = 7
+ctx.lineCap = 'round'
+ctx.lineJoin = 'round'
 
 let prevX = null
 let prevY = null

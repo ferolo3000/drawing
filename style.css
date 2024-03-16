@@ -1,10 +1,14 @@
-*{
+html,
+body {
     margin: 0;
-    padding: 0;
+    background-color: #fff;
 }
 
+
+
 .nav{
-    width: 810px;
+    border-color: #EF626C;
+    width: 800px;
     height: 90px;
     position: fixed;
     top: 0;
@@ -70,6 +74,5 @@ button{
     background-color: #31363F;
     color: #fff;
 }
-.save{
-    background-color: #0f65d4;
-}
+
+
