@@ -60,7 +60,7 @@ window.addEventListener("mousemove", function(e){
 })*/
 
 
-function canvas_read_mouse(canvas, e) {
+/*function canvas_read_mouse(canvas, e) {
     let canvasRect = canvas.getBoundingClientRect();
     canvas.tc_x1 = canvas.tc_x2;
     canvas.tc_y1 = canvas.tc_y2;
@@ -123,4 +123,32 @@ canvas.addEventListener('mouseup', (e) => { on_canvas_mouse_up(e) }, false);
 canvas.addEventListener('mousemove', (e) => { on_canvas_mouse_move(e) }, false);
 canvas.addEventListener('touchstart', (e) => { on_canvas_touch_start(e) }, false);
 canvas.addEventListener('touchend', (e) => { on_canvas_touch_end(e) }, false);
-canvas.addEventListener('touchmove', (e) => { on_canvas_touch_move(e) }, false);
+canvas.addEventListener('touchmove', (e) => { on_canvas_touch_move(e) }, false);*/
+
+var isIdle = true;
+function drawstart(event) {
+  ctx.beginPath();
+  ctx.moveTo(event.pageX - canvas.offsetLeft, event.pageY - canvas.offsetTop);
+  isIdle = false;
+}
+function drawmove(event) {
+  if (isIdle) return;
+  ctx.lineTo(event.pageX - canvas.offsetLeft, event.pageY - canvas.offsetTop);
+  ctx.stroke();
+}
+function drawend(event) {
+  if (isIdle) return;
+  drawmove(event);
+  isIdle = true;
+}
+function touchstart(event) { drawstart(event.touches[0]) }
+function touchmove(event) { drawmove(event.touches[0]); event.preventDefault(); }
+function touchend(event) { drawend(event.changedTouches[0]) }
+
+canvas.addEventListener('touchstart', touchstart, false);
+canvas.addEventListener('touchmove', touchmove, false);
+canvas.addEventListener('touchend', touchend, false);        
+
+canvas.addEventListener('mousedown', drawstart, false);
+canvas.addEventListener('mousemove', drawmove, false);
+canvas.addEventListener('mouseup', drawend, false);
